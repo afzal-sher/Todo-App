@@ -1,0 +1,135 @@
+/* TodoApp.css */
+
+.todo-container {
+  max-width: 400px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 32px 24px 24px 24px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+header h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 0.5em;
+  font-size: 2em;
+  letter-spacing: 1px;
+}
+
+header h2 {
+  text-align: center;
+  color: #000;
+  font-size: 1em;
+  margin-bottom: 1.5em;
+}
+
+.form {
+  margin-bottom: 1.5em;
+}
+
+.todo-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1em;
+  margin-bottom: 12px;
+  transition: border 0.2s;
+}
+
+.todo-input:focus {
+  border: 1.5px solid #0078d7;
+  outline: none;
+}
+
+.todo-btn {
+  width: 100%;
+  padding: 12px;
+  background: #0078d7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.todo-btn:hover {
+  background: #005fa3;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f7f7f7;
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+li:hover {
+  background: #e9f3fb;
+}
+
+li span {
+  flex: 1;
+  color: #333;
+  font-size: 1.05em;
+}
+
+li button {
+  background: none;
+  border: none;
+  margin-left: 8px;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s;
+}
+
+li button.delete-btn {
+  color: #e53935;
+}
+
+li button.delete-btn:hover {
+  color: #b71c1c;
+}
+
+li button.check-btn {
+  color: #43a047;
+}
+
+li button.check-btn:hover {
+  color: #1b5e20;
+}
+
+li button:hover {
+  color: #0078d7;
+}
+
+section > button {
+  width: 100%;
+  padding: 10px;
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background 0.2s;
+}
+
+section > button:hover {
+  background: #b71c1c;
+}
