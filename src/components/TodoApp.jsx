@@ -1,83 +1,65 @@
-import { useEffect, useState } from "react";
-import { MdDeleteForever } from "react-icons/md";
-import { MdCheck } from "react-icons/md";
-import "./TodoApp.css"
+import { useState } from "react";
+
+import "./TodoApp.css";
+import { TodoForm } from "./todoform";
+import { TodoList } from "./TodoList";
+import { TodoData } from "./TodoData";
 
 export const TodoApp = () => {
-  const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
-  const [timedate, settimedate] = useState("");
-  const handleinputchange = (value) => {
-    setInputValue(value);
+
+  const handleFormSubmit = (inputValue) => {
+  const  {id, content, cheecked} = inputValue;
+    if (!content) return;
+    // if (todos.includes(inputValue)) return; this is not work in array of object
+    //                  NOW
+    // we can use some() and find() for it
+    const ifTodoContentmatched = todos.find(
+      (curTodo) => curTodo.content === content
+    );
+    if (ifTodoContentmatched) return;
+
+    setTodos((prevTodos) => [...prevTodos, { id, content, cheecked }]);
   };
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    if (!inputValue) return;
-    if (todos.includes(inputValue)) {
-      setInputValue("");
-      return;
-    }
-
-    setTodos((prevTodos) => [...prevTodos, inputValue]);
-    setInputValue("");
+  const handleDelete = (Value) => {
+    const newtodos = todos.filter(
+      (curElement) => curElement.content !== Value
+    );
+    setTodos(newtodos);
   };
-   const handleDelete = (curTask) =>{
-    const newtodos = todos.filter(( curElement , index) => curElement !== curTask)
-    setTodos(newtodos)
-   }
-   const handleCleartodo = () =>{
-    setTodos([])
-   }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-
-      const formatDate = now.toLocaleDateString();
-      const formatTime = now.toLocaleTimeString();
-      settimedate(`${formatDate}-${formatTime}`);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
+  const handleCleartodo = () => {
+    setTodos([]);
+  };
+  
+  const handlecheektodo = (task) => {
+const updatedTodos = todos.map((curTask) => {
+      if (curTask.content === task) {
+        return { ...curTask, cheecked: !curTask.cheecked }; // Toggle the 'cheecked' property
+      } else{
+        return curTask
+      }
+      
+    });
+    setTodos(updatedTodos);
+  }
   return (
     <section className="todo-container">
       <header>
         <h1>Todo List</h1>
-        <h2>{timedate}</h2>
+        <TodoData />
       </header>
-      <section className="form">
-        <form onSubmit={handleFormSubmit}>
-          <div>
-            <input
-              type="text"
-              className="todo-input"
-              autoComplete="off"
-              value={inputValue}
-              onChange={(event) => handleinputchange(event.target.value)}
-            />
-          </div>
-          <div>
-            <button type="submit" className="todo-btn"> 
-              Add task
-            </button>
-          </div>
-        </form>
-      </section>
+      <TodoForm onAddTodo={handleFormSubmit} />
       <section>
         <ul>
-          {todos.map((curTask, index) => {
+          {todos.map((curTask) => {
             return (
-              <li key={index}>
-                <span>{curTask}</span>
-                <button onClick={() => handleDelete(curTask)} className="delete-btn">
-                  <MdDeleteForever />
-                </button>
-                <button className="check-btn">
-                  <MdCheck />
-                </button>
-              </li>
+              <TodoList
+                key={curTask.id}
+                Data={curTask.content}
+                onhandleDeleteTodo={handleDelete}
+                cheecked={curTask.cheecked}
+                onhandleCheckTodo={handlecheektodo}
+              />
             );
           })}
         </ul>

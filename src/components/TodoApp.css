@@ -133,3 +133,10 @@ section > button {
 section > button:hover {
   background: #b71c1c;
 }
+.checkList{
+  text-decoration: line-through;
+  
+}
+.notCheckList{
+  text-decoration: none;
+}
